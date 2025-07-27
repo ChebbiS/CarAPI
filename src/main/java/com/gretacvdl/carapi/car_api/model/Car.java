@@ -1,14 +1,19 @@
 package com.gretacvdl.carapi.car_api.model;
 
 import jakarta.persistence.*;
-
 import java.util.Set;
 
+@Entity
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String model;
+
+    private Double price;
+
+    private Integer year;
 
     @ManyToOne
     @JoinColumn(name = "owned_id")
@@ -18,7 +23,11 @@ public class Car {
     private Registration registration;
 
     @ManyToMany
-    @JoinTable(name = "car_feature", joinColumns = @JoinColumn(name = "car_id"), inverseJoinColumns = @JoinColumn(name = "feature_id"))
+    @JoinTable(
+            name = "car_feature",
+            joinColumns = @JoinColumn(name = "car_id"),
+            inverseJoinColumns = @JoinColumn(name = "feature_id")
+    )
     private Set<Feature> features;
 
     public Long getId() {
@@ -35,6 +44,22 @@ public class Car {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
     }
 
     public Owner getOwner() {
